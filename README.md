@@ -1,2 +1,2 @@
-# Antares (turkunov, kyyoto, <ASLAN git name>)
+# Antares (turkunov, kyyoto, Aspir01)
 Микросервис для дедупликации и классификации новостей ТГ-каналов
