@@ -1,0 +1,11 @@
+{
+    "CLIENT_META": {
+      "title": "Antares API",
+      "description": "API для избавления от инфошума в новостях и их группировки",
+      "contact": {
+          "name": "Turkunov Y.",
+          "url": "https://github.com/turkunov"
+      },
+      "version": "0.0.1"
+    }
+  }
