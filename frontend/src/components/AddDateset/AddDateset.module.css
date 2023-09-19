@@ -1,0 +1,73 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto 0;
+}
+
+.window {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 800px;
+    height: 400px;
+    border-radius: 10px;
+    background: #4cc9f01a;
+    font-size: 38px;
+    text-align: center;
+    margin: 40px 0;
+    color: #4CC9F0;
+    cursor: pointer;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 900;
+    transition: 0.3s;
+}
+
+.window:hover {
+    font-size: 42px;
+}
+
+.btns button {
+    border-radius: 10px;
+    height: 90px;
+    width: 300px;
+    font-family: 'Roboto Slab', serif;
+    font-size: 24px;
+    margin: 0 100px;
+    text-align: center;
+    font-weight: 500;
+    color: #4CC9F0;
+    border: 2px solid rgba(76, 201, 240, 0.3);
+    background: linear-gradient(92deg, rgba(247, 37, 133, 0.2) 0%, rgba(76, 201, 240, 0.2) 99.51%);
+}
+
+button:hover {
+    color: black;
+    background: linear-gradient(92deg, #4CC9F0 0%, #F72585 99.51%);
+    border: transparent;
+}
+
+input[type="file"] {
+    width: 0px;
+}
+
+@media (width > 1600px) {
+    .window {
+        margin: 90px 0 !important;
+        height: 500px !important;
+    }
+}
+
+@media (width < 900px) {
+    .window {
+        height: 300px;
+        width: 320px;
+        font-size: 24px;
+    }
+
+    button {
+        width: 60% !important;
+        margin: 20px 80px !important;
+    }
+
+}
