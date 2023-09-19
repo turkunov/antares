@@ -135,31 +135,37 @@ class Trainer:
 
 
 def evaluate_loader(loader: DataLoader, model: torch.nn.Module) -> Dict[str, float]:
-    from sklearn.metrics import f1_score, accuracy_score, confusion_matrix
+    
     with torch.no_grad():
         model.eval()
         N = 0
         total_loss = 0.0
         target_epoch = []
         predicted_epoch = []
+        ind = np.random.randint(low = 1 , high = len(loader.dataset), size=3)
+        j = 0
+        fig1, ax = plt.subplots(1,3,figsize=(20, 10))
         for i, (inputs, targets) in enumerate(loader):
-            inputs, targets = inputs, targets
+            #inputs, targets = inputs.to(DEVICE), targets.to(DEVICE)
             outputs = model(inputs)
             N += inputs.shape[0]
             predicted_targets = outputs.argmax(dim=1)
             target_epoch.append(targets.detach().cpu().numpy())
             predicted_epoch.append(predicted_targets.detach().cpu().numpy())
-
-        acc = accuracy_score(
-            np.concatenate(target_epoch),
-            np.concatenate(predicted_epoch)
-        )
+            if i in ind:
+                print('True: ',targets.detach().cpu().numpy(), 'Predict:', predicted_targets.detach().cpu().numpy())
+                ax[j].imshow(inputs[0][0])
+                j+=1
         f1 = f1_score(
             np.concatenate(target_epoch),
             np.concatenate(predicted_epoch),
             average='macro'
         )
-    return {
+        acc = accuracy_score(np.concatenate(target_epoch),
+            np.concatenate(predicted_epoch))
+        
+  
+        return {
             'acc': acc,
-            'f1': f1
-        }, confusion_matrix(np.concatenate(target_epoch), np.concatenate(predicted_epoch))
+            'f1': f1,
+        }
