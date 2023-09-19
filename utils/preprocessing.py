@@ -1,5 +1,5 @@
 import pandas as pd
-
+import dask.dataframe as dd
 import nltk
 from nltk.corpus import stopwords
 from nltk import word_tokenize, sent_tokenize
@@ -10,7 +10,7 @@ warnings.filterwarnings("ignore")
 
 class textPreprocesser:
 
-  def __init__(self, df: pd.DataFrame, columns_for_preprocessing: list) -> None:
+  def __init__(self, df: pd.DataFrame, columns_for_preprocessing: list, partitions: int = 100) -> None:
     """
     Класс для препроцессинга столбцов columns_for_preprocessing в датафрейме df. 
     Для более качественных результатов по итогам происходит стемматизация токенов 
@@ -20,14 +20,14 @@ class textPreprocesser:
         self.stemmer = SnowballStemmer('russian')
         self.stop_words = set(stopwords.words('russian') + stopwords.words('english'))
         self.cols = columns_for_preprocessing
-        self.df = df
+        self.df = dd.from_pandas(df, npartitions=partitions)
     except Exception as e:
         nltk.download('punkt')
         nltk.download('stopwords')
         self.stemmer = SnowballStemmer('russian')
         self.stop_words = set(stopwords.words('russian') + stopwords.words('english'))
         self.cols = columns_for_preprocessing
-        self.df = df
+        self.df = dd.from_pandas(df, npartitions=partitions)
     
   def tokenize_to_processing(self, token_string: str) -> list:
     if type(token_string) == str:
@@ -55,8 +55,8 @@ class textPreprocesser:
       self.df[column] = self.df[column].str.replace(' | '.join([x + '\s' for x in self.stop_words]), ' ', regex=True)
 
       # токенизация и стемматизация
-      self.df[column] = self.df[column].apply(self.tokenize_to_processing)
-      self.df[column] = self.df[column].apply(self.stem)
+      self.df[column] = self.df[column].map_partitions(lambda df: df.apply(self.tokenize_to_processing))
+      self.df[column] = self.df[column].map_partitions(lambda df: df.apply(self.stem)).compute(scheduler='processes')
 
       # удаление пустых значений, которые могли получиться после препроцессинга
       self.df = self.df[self.df[column].str.len() > 0]
