@@ -30,7 +30,9 @@ app = FastAPI(
     license_info=None
 )
 
+# костанты для обучения
 tokenizer = BertTokenizer.from_pretrained('DeepPavlov/rubert-base-cased')
+classifier = pickle.load(open('model', 'rb'))
 
 # сехма для новостей
 class newsSchema(BaseModel):
@@ -84,7 +86,6 @@ async def dataset_inference(dataset: UploadFile = File(...)):
     dedup_df, removed_n = dedup(preprocesser.original_df, dists, indices)
 
     # создание предсказаний
-    classifier = pickle.load(open('knn_baseline', 'rb'))
     pred_classes = classifier.predict(embeddings[dedup_df.index.values,:]).reshape(-1,1)
     dedup_df['classes'] = pred_classes
     
@@ -100,7 +101,6 @@ async def single_inference(article: newsSchema):
         stemmed_tokens = ' '.join(textPreprocesser.clean_text(article.text))
         stemmed_embeddings = create_embeddings(np.array([stemmed_tokens]), tokenizer)
 
-        classifier = pickle.load(open('knn_baseline', 'rb'))
         pred_class = classifier.predict(stemmed_embeddings).item()
 
         return {
