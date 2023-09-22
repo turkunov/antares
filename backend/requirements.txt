@@ -9,3 +9,4 @@ nltk
 transformers
 python-multipart
 uvicorn==0.22.0
+xgboost
