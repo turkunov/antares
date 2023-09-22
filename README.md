@@ -1,7 +1,7 @@
 # Team Antares 
 #### @turkunov (Backend/ML/DS), @kyyoto (ML/DS), @Aspir01 (Frontend/React)
 
-[ [🇷🇺] ](https://github.com/turkunov/antares/blob/main/README.md) | [ [🇺🇸] ](https://github.com/turkunov/antares/blob/main/README_en.md)
+[ [🇷🇺] ](https://github.com/turkunov/antares/blob/main/README.md) | [ [🇺🇸] ](https://github.com/turkunov/antares/blob/main/README_eng.md)
 
 Микросервис для дедупликации и классификации новостей ТГ-каналов в качестве решения задачи на соревновании AI news с призовыми в 10.000$.
 
