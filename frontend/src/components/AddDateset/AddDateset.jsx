@@ -16,8 +16,8 @@ const AddDateset = () => {
 
             try {
                 // Отправляем POST запрос на сервер с использованием FormData
-                const response = await fetch('https://antares-production.up.railway.app/api/dataset_inference', {
-                    method: 'POST', // Используем метод POST
+                const response = await fetch('https://antares-production.up.railway.app/api/dataset_inference/', {
+                    method: 'GET', // Используем метод POST
                     body: formData, // Передаем FormData с файлом
                 });
 

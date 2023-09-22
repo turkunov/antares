@@ -28,11 +28,12 @@ const AddNews = () => {
     const handleClassAndDuplicates = async () => {
         try {
             // Создаем URL для запроса, добавляя параметры title и description
-            const url = `https://antares-production.up.railway.app/api/single_inference/?channelid=${encodeURIComponent(title)}&text=${encodeURIComponent(description)}`;
+            const url = `https://antares-production.up.railway.app/api/single_inference/`;
 
             // Отправляем GET запрос на указанный URL
             const response = await fetch(url, {
                 method: 'GET',
+                body: JSON.stringify({ description: description }),
                 headers: {
                     'Content-Type': 'application/json'
                 }
