@@ -1,2 +1,10 @@
 fastapi
 pydantic
+scikit-learn
+pandas
+numpy
+dask
+faiss-cpu
+nltk
+transformers
+python-multipart
